@@ -17,6 +17,11 @@ import { TopicsListComponent } from './topics-list/topics-list.component';
 import {MatToolbarModule} from '@angular/material/toolbar';
 import {MatSidenavModule} from '@angular/material/sidenav';
 import {MatListModule} from '@angular/material/list';
+import {AngularFireModule} from '@angular/fire';
+import { environment } from '../environments/environment';
+import {AngularFireAuthModule} from '@angular/fire/auth';
+import {AngularFirestoreModule} from '@angular/fire/firestore';
+import {AngularFireStorageModule} from '@angular/fire/storage';
 
 
 @NgModule({
@@ -29,6 +34,10 @@ import {MatListModule} from '@angular/material/list';
   ],
   imports: [
     BrowserModule,
+    AngularFireModule,
+    AngularFireAuthModule,
+    AngularFireModule.initializeApp(environment.firebaseConfig),
+    AngularFireStorageModule,
     BrowserAnimationsModule,
     MatMenuModule,
     MatButtonModule,
