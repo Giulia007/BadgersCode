@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {Topic } from "../model/topic";
 import {TOPICS} from "../model/db-data";
 import { TopicsService } from '../services/topics.service'
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-home',
@@ -10,14 +11,17 @@ import { TopicsService } from '../services/topics.service'
 })
 export class HomeComponent implements OnInit {
 
+  allTopics$: Observable<Topic[]>;
   beginnerTopics: Topic[];
   advancedTopics: Topic[];
+  allTopicsArray: Topic[];
 
   constructor(private topicService: TopicsService) { }
 
+
   ngOnInit() {
 
-    this.topicService.loadAllTopics();
+    this.allTopics$ = this.topicService.loadAllTopics();
     /* this.topicService.addTopic(); */
 
     const topics:any = Object.values(TOPICS);
