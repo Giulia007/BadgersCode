@@ -1,10 +1,13 @@
 export interface Topic {
-    id:number;
-    description:string;
+    id:string;
+    titles: {
+        description:string;
+        longDescription: string;
+    };
     iconUrl: string;
-    topicListIcon: string;
-    longDescription: string;
-    category:string;
+    uploadedImageUrl:string;
+    courseListIcon: string;
+    categories:string[];
     lessonsCount:number;
 }
 
