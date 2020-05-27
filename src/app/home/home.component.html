@@ -1,12 +1,11 @@
 <div class="topics-panel">
-    <h3>All Topics</h3>
-  
+    <h3>All Topics</h3>  
       <mat-tab-group>
-        <mat-tab class="dark-text" label="Beginner">
-            <topics-list [topics]="beginnerTopics"></topics-list>
+        <mat-tab label="Beginner">
+            <topics-card-list [topics]="beginnerTopics$ | async"></topics-card-list>
         </mat-tab>
         <mat-tab label="Advanced">
-            <topics-list [topics]="advancedTopics"></topics-list>
+            <topics-card-list [topics]="advancedTopics$ | async"></topics-card-list>
         </mat-tab>
       </mat-tab-group>
 </div>

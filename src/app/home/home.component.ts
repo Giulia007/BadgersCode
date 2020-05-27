@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import {Topic } from "../model/topic";
-import {TOPICS} from "../model/db-data";
 import { TopicsService } from '../services/topics.service'
 import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
 
 @Component({
   selector: 'app-home',
@@ -11,22 +11,33 @@ import { Observable } from 'rxjs';
 })
 export class HomeComponent implements OnInit {
 
-  allTopics$: Observable<Topic[]>;
-  beginnerTopics: Topic[];
-  advancedTopics: Topic[];
+  beginnerTopics$: Observable<Topic[]>;
+  advancedTopics$: Observable<Topic[]>;
   allTopicsArray: Topic[];
 
-  constructor(private topicService: TopicsService) { }
+  allTopics$: Observable<Topic[]>;
 
+  constructor(private topicService: TopicsService) { }
 
   ngOnInit() {
 
     this.allTopics$ = this.topicService.loadAllTopics();
+
+    this.beginnerTopics$ = this.allTopics$.pipe(
+      map(topics => topics.filter(
+        topic => topic.categories.includes('beginner')
+      ))
+    );
+
+    this.advancedTopics$ = this.allTopics$.pipe(
+      map(topics => topics.filter(
+        topic => topic.categories.includes('advanced')
+      ))
+    );
+
+
     /* this.topicService.addTopic(); */
 
-    const topics:any = Object.values(TOPICS);
-    this.beginnerTopics = topics.filter(topic => topic.category === 'BEGINNER');
-    this.advancedTopics = topics.filter(topic => topic.category === 'ADVANCED');
   }
 
 }
