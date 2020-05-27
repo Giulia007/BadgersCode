@@ -16,12 +16,19 @@ import { TopMenuComponent } from './top-menu/top-menu.component';
 import { TopicsListComponent } from './topics-list/topics-list.component';
 import {MatToolbarModule} from '@angular/material/toolbar';
 import {MatSidenavModule} from '@angular/material/sidenav';
+import { MatSortModule } from '@angular/material/sort';
+import { MatTableModule } from '@angular/material/table';
 import {MatListModule} from '@angular/material/list';
+import { MatProgressBarModule } from '@angular/material/progress-bar';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import {AngularFireModule} from '@angular/fire';
 import { environment } from '../environments/environment';
 import {AngularFireAuthModule} from '@angular/fire/auth';
 import {AngularFirestoreModule} from '@angular/fire/firestore';
 import {AngularFireStorageModule} from '@angular/fire/storage';
+import { TopicComponent } from './topic/topic.component';
+import { TopicsCardListComponent } from './topics-card-list/topics-card-list.component';
+import { TopicResolver } from './services/topic.resolver';
 
 
 @NgModule({
@@ -30,7 +37,9 @@ import {AngularFireStorageModule} from '@angular/fire/storage';
     HomeComponent,
     AboutComponent,
     TopMenuComponent,
-    TopicsListComponent
+    TopicsListComponent,
+    TopicComponent,
+    TopicsCardListComponent
   ],
   imports: [
     BrowserModule,
@@ -47,9 +56,13 @@ import {AngularFireStorageModule} from '@angular/fire/storage';
     MatToolbarModule,
     MatSidenavModule,
     MatListModule,
+    MatSortModule,
+    MatTableModule,
+    MatProgressBarModule,
+    MatProgressSpinnerModule,
     AppRoutingModule
   ],
-  providers: [],
+  providers: [TopicResolver],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
