@@ -3,6 +3,7 @@ import { AngularFirestore } from '@angular/fire/firestore';
 import { map, first } from 'rxjs/operators';
 import { Topic } from '../model/topic';
 import { Observable } from 'rxjs';
+import { convertSnaps } from './db-utils';
 
 @Injectable({
   providedIn: 'root'
@@ -20,15 +21,24 @@ export class TopicsService {
   });
   } */
 
-  loadAllTopics() {
-    return this.db.collection("topics").snapshotChanges()
+  findTopicByUrl(topicUrl: string): Observable<Topic> {
+    return this.db.collection('topics',
+      ref => ref.where('topicUrl', '==', topicUrl))
+      .snapshotChanges()
       .pipe(map(snaps => {
-        return snaps.map(snap => {
-          return <Topic>{
-            id: snap.payload.doc.id,
-            ...snap.payload.doc.data() as Topic
-          }
-        });
-    }));
+        const topics = convertSnaps<Topic>(snaps);
+        return topics.length == 1 ? topics[0] : undefined;
+      }),
+       first()
+      )
+  }
+
+  loadAllTopics(): Observable<Topic[]> {
+    return this.db.collection("topics",
+      ref => ref.orderBy('seqNo')
+    )
+      .snapshotChanges()
+      .pipe(map(snaps => convertSnaps<Topic>(snaps), first())
+      );
   }
 }
