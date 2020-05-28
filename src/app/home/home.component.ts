@@ -19,8 +19,7 @@ export class HomeComponent implements OnInit {
 
   constructor(private topicService: TopicsService) { }
 
-  ngOnInit() {
-
+  reloadTopic() {
     this.allTopics$ = this.topicService.loadAllTopics();
 
     this.beginnerTopics$ = this.allTopics$.pipe(
@@ -34,10 +33,12 @@ export class HomeComponent implements OnInit {
         topic => topic.categories.includes('advanced')
       ))
     );
+  }
 
+  ngOnInit() {
+    this.reloadTopic();
 
     /* this.topicService.addTopic(); */
-
   }
 
 }

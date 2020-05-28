@@ -2,7 +2,7 @@ import { Injectable, OnInit } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { map, first } from 'rxjs/operators';
 import { Topic } from '../model/topic';
-import { Observable } from 'rxjs';
+import { Observable, from } from 'rxjs';
 import { convertSnaps } from './db-utils';
 import { Lesson } from '../model/lesson';
 import OrderByDirection = firebase.firestore.OrderByDirection;
@@ -12,8 +12,10 @@ import OrderByDirection = firebase.firestore.OrderByDirection;
 })
 export class TopicsService {
 
-  constructor(private db: AngularFirestore) {
+  constructor(private db: AngularFirestore) {}
 
+  saveTopic(topicId:string, changes: Partial<Topic>): Observable<any> {
+   return from (this.db.doc(`topics/${topicId}`).update(changes));
   }
 
   /* addTopic() {
@@ -58,4 +60,6 @@ export class TopicsService {
       )
 
   }   
+
+
 }

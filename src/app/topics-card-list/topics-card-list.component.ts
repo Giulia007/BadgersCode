@@ -1,7 +1,8 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, Output } from '@angular/core';
 import { Topic } from '../model/topic';
 import { MatDialogConfig, MatDialog } from '@angular/material/dialog';
-import  { TopicDialogComponent } from '../topic-dialog/topic-dialog.component'
+import { TopicDialogComponent } from '../topic-dialog/topic-dialog.component'
+import { EventEmitter } from '@angular/core';
 
 @Component({
   selector: 'topics-card-list',
@@ -10,22 +11,28 @@ import  { TopicDialogComponent } from '../topic-dialog/topic-dialog.component'
 })
 export class TopicsCardListComponent implements OnInit {
 
-  @Input()
-  topics: Topic[]
+  @Input() topics: Topic[];
 
-  constructor( private dialog: MatDialog) { }
+  @Output() topicEdited = new EventEmitter();
 
-    edtiTopic(topic) {
-      const dialogConfig = new MatDialogConfig();
-      //dialog does not close when clicking outside of it
-      dialogConfig.disableClose = true;
-      dialogConfig.autoFocus = true;
-      //the data that we are passing to the dialog
-      dialogConfig.data = topic;
-      this.dialog.open(TopicDialogComponent)
+  constructor(private dialog: MatDialog) { }
 
-    }
+  edtiTopic(topic: Topic) {
+    const dialogConfig = new MatDialogConfig();
+    //dialog does not close when clicking outside of it
+    dialogConfig.disableClose = true;
+    dialogConfig.autoFocus = true;
+    //the data that we are passing to the dialog
+    dialogConfig.data = topic;
+    this.dialog.open(TopicDialogComponent, dialogConfig)
+      .afterClosed()
+      .subscribe(val => {
+        if (val) {
+          this.topicEdited.emit();
+        }
+      });
 
+  }
   ngOnInit(): void {
   }
 
