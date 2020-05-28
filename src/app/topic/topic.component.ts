@@ -1,6 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Topic } from '../model/topic';
+import { TopicsService } from '../services/topics.service';
+import { Lesson } from '../model/lesson';
+import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
+import { finalize } from 'rxjs/operators';
 
 @Component({
   selector: 'app-topic',
@@ -9,18 +13,30 @@ import { Topic } from '../model/topic';
 })
 export class TopicComponent implements OnInit {
 
-  constructor(private route: ActivatedRoute) { }
+  constructor(private route: ActivatedRoute, 
+              private topicsService: TopicsService) { }
 
   topic: Topic;
-  displayedColumns = ['seqNo', 'description', 'duration'];
+  lessons: Lesson[];
+  displayedColumns = ['seqNo', 'description'];
   dataSource:any;
+  lastPageLoaded = 0;
+  loading = false;
 
   ngOnInit(): void {
     this.topic = this.route.snapshot.data['topic'];
+    this.loading = true;
+    this.topicsService.findLessons(this.topic.id)
+    .pipe(finalize(()=> this.loading = false))
+    .subscribe(lessons => this.lessons = lessons);
   }
 
   loadMore() {
-
+    this.lastPageLoaded ++;
+    this.loading = true;
+    this.topicsService.findLessons(this.topic.id, 'asc', this.lastPageLoaded)
+    .pipe(finalize(()=> this.loading = false))
+    .subscribe(lessons => this.lessons = this.lessons.concat(lessons));
   }
 
 }

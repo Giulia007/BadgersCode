@@ -4,6 +4,8 @@ import { map, first } from 'rxjs/operators';
 import { Topic } from '../model/topic';
 import { Observable } from 'rxjs';
 import { convertSnaps } from './db-utils';
+import { Lesson } from '../model/lesson';
+import OrderByDirection = firebase.firestore.OrderByDirection;
 
 @Injectable({
   providedIn: 'root'
@@ -23,7 +25,7 @@ export class TopicsService {
 
   findTopicByUrl(topicUrl: string): Observable<Topic> {
     return this.db.collection('topics',
-      ref => ref.where('topicUrl', '==', topicUrl))
+      ref => ref.where('url', '==', topicUrl))
       .snapshotChanges()
       .pipe(map(snaps => {
         const topics = convertSnaps<Topic>(snaps);
@@ -41,4 +43,19 @@ export class TopicsService {
       .pipe(map(snaps => convertSnaps<Topic>(snaps), first())
       );
   }
+
+  findLessons(topicId:string, sortOrder: OrderByDirection = 'asc',
+              pageNumber = 0, pageSize = 3): Observable<Lesson[]> {
+
+      return this.db.collection(`topics/${topicId}/lessons`,
+                  ref => ref.orderBy('seqNo', sortOrder) 
+                  .limit(pageSize)
+                  .startAfter(pageNumber * pageSize))
+      .snapshotChanges()
+      .pipe(
+        map(snaps => convertSnaps<Lesson>(snaps)),
+        first()
+      )
+
+  }   
 }
