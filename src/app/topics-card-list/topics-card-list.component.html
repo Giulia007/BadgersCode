@@ -13,9 +13,11 @@
     <mat-card-actions class="topic-actions">
 
         <button mat-button class="mat-raised-button mat-primary" 
-                [routerLink]="['/topics', topic.url]">VIEW TOPIC
+                [routerLink]="['/topics', topic.url]">
+            VIEW TOPIC
         </button>
-        <button mat-button class="mat-raised-button mat-accent">
+        <button mat-button class="mat-raised-button mat-accent"
+                (click)="edtiTopic(topic)">
             EDIT
         </button>
 

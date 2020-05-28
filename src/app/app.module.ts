@@ -13,7 +13,6 @@ import {MatIconModule} from '@angular/material/icon';
 import {MatCardModule} from '@angular/material/card';
 import {MatTabsModule} from '@angular/material/tabs';
 import { TopMenuComponent } from './top-menu/top-menu.component';
-import { TopicsListComponent } from './topics-list/topics-list.component';
 import {MatToolbarModule} from '@angular/material/toolbar';
 import {MatSidenavModule} from '@angular/material/sidenav';
 import { MatSortModule } from '@angular/material/sort';
@@ -21,6 +20,7 @@ import { MatTableModule } from '@angular/material/table';
 import {MatListModule} from '@angular/material/list';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { MatDialogModule } from '@angular/material/dialog';
 import {AngularFireModule} from '@angular/fire';
 import { environment } from '../environments/environment';
 import {AngularFireAuthModule} from '@angular/fire/auth';
@@ -29,6 +29,7 @@ import {AngularFireStorageModule} from '@angular/fire/storage';
 import { TopicComponent } from './topic/topic.component';
 import { TopicsCardListComponent } from './topics-card-list/topics-card-list.component';
 import { TopicResolver } from './services/topic.resolver';
+import { TopicDialogComponent } from './topic-dialog/topic-dialog.component';
 
 
 @NgModule({
@@ -37,9 +38,9 @@ import { TopicResolver } from './services/topic.resolver';
     HomeComponent,
     AboutComponent,
     TopMenuComponent,
-    TopicsListComponent,
     TopicComponent,
-    TopicsCardListComponent
+    TopicsCardListComponent,
+    TopicDialogComponent
   ],
   imports: [
     BrowserModule,
@@ -60,6 +61,7 @@ import { TopicResolver } from './services/topic.resolver';
     MatTableModule,
     MatProgressBarModule,
     MatProgressSpinnerModule,
+    MatDialogModule,
     AppRoutingModule
   ],
   providers: [TopicResolver],
