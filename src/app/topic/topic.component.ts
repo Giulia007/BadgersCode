@@ -1,10 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Topic } from '../model/topic';
 import { TopicsService } from '../services/topics.service';
 import { Lesson } from '../model/lesson';
 import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
-import { finalize } from 'rxjs/operators';
+import { finalize, map, debounceTime, distinctUntilChanged } from 'rxjs/operators';
+import { fromEvent } from 'rxjs';
 
 @Component({
   selector: 'app-topic',
@@ -23,6 +24,8 @@ export class TopicComponent implements OnInit {
   lastPageLoaded = 0;
   loading = false;
 
+  @ViewChild('searchInput', { static: true }) input: ElementRef;
+
   ngOnInit(): void {
     this.topic = this.route.snapshot.data['topic'];
     this.loading = true;
@@ -37,6 +40,16 @@ export class TopicComponent implements OnInit {
     this.topicsService.findLessons(this.topic.id, 'asc', this.lastPageLoaded)
     .pipe(finalize(()=> this.loading = false))
     .subscribe(lessons => this.lessons = this.lessons.concat(lessons));
+  }
+
+  ngAfterViewInit() {
+    fromEvent<any>(this.input.nativeElement, 'keyup')
+      .pipe(
+        map(event => event.target.value),
+        debounceTime(400),
+        distinctUntilChanged()
+      )
+      .subscribe(console.log);
   }
 
 }
