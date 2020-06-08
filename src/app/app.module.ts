@@ -34,6 +34,10 @@ import { TopicComponent } from './topic/topic.component';
 import { TopicsCardListComponent } from './topics-card-list/topics-card-list.component';
 import { TopicResolver } from './services/topic.resolver';
 import { TopicDialogComponent } from './topic-dialog/topic-dialog.component';
+//NgRx
+import { StoreModule } from '@ngrx/store';
+import { StoreDevtoolsModule } from '@ngrx/store-devtools';
+import { AuthModule } from './auth/auth.module';
 
 
 @NgModule({
@@ -70,7 +74,10 @@ import { TopicDialogComponent } from './topic-dialog/topic-dialog.component';
     MatProgressBarModule,
     MatProgressSpinnerModule,
     MatDialogModule,
-    AppRoutingModule
+    AppRoutingModule,
+    StoreModule.forRoot({}, {}),
+    StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: environment.production }),
+    AuthModule.forRoot()
   ],
   providers: [TopicResolver],
   bootstrap: [AppComponent]
