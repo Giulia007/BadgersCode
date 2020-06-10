@@ -13,9 +13,14 @@
                 <mat-icon>person_add</mat-icon>
                 <span>Register</span>
             </a>
-            <a mat-list-item>
+            <a mat-list-item routerLink="/login" *ngIf="isLoggedOut$ | async">
                 <mat-icon>account_circle</mat-icon>
-                <a routerLink="/login">Loginnn</a>
+                <span>Login</span>
+            </a>
+
+            <a mat-list-item routerLink="/" *ngIf="isLoggedIn$ | async">
+                <mat-icon>exit_to_app</mat-icon>
+                <span>Logout</span>
             </a>
         </mat-nav-list>
     </mat-sidenav>
@@ -25,6 +30,8 @@
             <mat-icon>menu</mat-icon>
         </button>
     </mat-toolbar>
+
+    
 
     <router-outlet></router-outlet>
 

@@ -1,4 +1,10 @@
 import { Component, OnInit } from '@angular/core';
+import { Store, select } from '@ngrx/store';
+import { AuthState } from '../auth/reducers';
+import { Observable } from 'rxjs';
+import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
+import { map } from 'rxjs/operators';
+import { isLoggedIn, isLoggedOut } from '../auth/auth.selectors';
 
 @Component({
   selector: 'side-menu',
@@ -7,9 +13,20 @@ import { Component, OnInit } from '@angular/core';
 })
 export class SideMenuComponent implements OnInit {
 
-  constructor() { }
+  isLoggedIn$: Observable<boolean>;
+  isLoggedOut$: Observable<boolean>;
 
-  ngOnInit(): void {
+  constructor(private store: Store<AuthState>) { }
+
+  ngOnInit() {
+    this.isLoggedIn$ = this.store
+    .pipe(
+       select(isLoggedIn) 
+    )
+    this.isLoggedOut$ = this.store
+    .pipe(
+      select(isLoggedOut)
+    )
   }
 
 }
