@@ -4,6 +4,7 @@ import { HomeComponent } from "./home/home.component";
 import { AboutComponent } from "./about/about.component";
 import { TopicComponent } from './topic/topic.component';
 import { TopicResolver} from "./services/topic.resolver";
+import { LoginComponent } from './auth/login/login.component';
 
 const routes: Routes = [
   {
@@ -23,7 +24,10 @@ const routes: Routes = [
       topic: TopicResolver
     }
   },
-
+  {
+    path: "login",
+    component: LoginComponent
+  },
   {
     path: "**",
     redirectTo: '/'
