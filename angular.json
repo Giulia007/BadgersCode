@@ -123,5 +123,8 @@
       }
     }
   },
-  "defaultProject": "BadgersCode"
+  "defaultProject": "BadgersCode",
+  "cli": {
+    "defaultCollection": "@ngrx/schematics"
+  }
 }
