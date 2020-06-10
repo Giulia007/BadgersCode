@@ -5,6 +5,7 @@ import { Observable } from 'rxjs';
 import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
 import { map } from 'rxjs/operators';
 import { isLoggedIn, isLoggedOut } from '../auth/auth.selectors';
+import { logout } from '../auth/auth.actions';
 
 @Component({
   selector: 'side-menu',
@@ -27,6 +28,10 @@ export class SideMenuComponent implements OnInit {
     .pipe(
       select(isLoggedOut)
     )
+  }
+
+  logout() {
+    this.store.dispatch(logout());
   }
 
 }
