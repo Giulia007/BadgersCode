@@ -7,5 +7,7 @@ export const login = createAction(
 );
 
 
-
+export const logout = createAction(
+    "[Side Menu] User Logout"
+);
 
