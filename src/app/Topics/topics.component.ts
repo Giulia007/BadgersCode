@@ -4,7 +4,6 @@ import { TopicsService } from '../services/topics.service'
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
-import { SharedModule } from '../shared/shared.module';
 
 @Component({
   selector: 'app-topics',

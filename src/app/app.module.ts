@@ -23,6 +23,7 @@ import { StoreModule } from '@ngrx/store';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { AuthModule } from './auth/auth.module';
 import { AuthGuard } from './auth/auth.guard';
+import { EffectsModule } from '@ngrx/effects';
 //import {metaReducers, reducers} from './reducers';
 
 
@@ -64,7 +65,8 @@ const routes: Routes = [
     StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: environment.production }),
     AuthModule.forRoot(),
     HttpClientModule,
-    SharedModule
+    SharedModule,
+    EffectsModule.forRoot([])
   ],
   providers: [TopicResolver],
   bootstrap: [AppComponent]
