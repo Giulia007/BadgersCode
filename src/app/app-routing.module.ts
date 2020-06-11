@@ -6,6 +6,7 @@ import { TopicComponent } from './topic/topic.component';
 import { TopicResolver} from "./services/topic.resolver";
 import { LoginComponent } from './auth/login/login.component';
 import { HomeComponent } from './home/home.component';
+import { AuthGuard } from './auth/auth.guard';
 
 const routes: Routes = [
   {
@@ -15,7 +16,8 @@ const routes: Routes = [
   },
   {
     path: "topics",
-    component: TopicsComponent
+    component: TopicsComponent,
+    canActivate: [AuthGuard]
 
   },
   {
