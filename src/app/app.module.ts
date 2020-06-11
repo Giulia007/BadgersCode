@@ -22,6 +22,7 @@ import { SideMenuComponent } from './side-menu/side-menu.component';
 import { StoreModule } from '@ngrx/store';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { AuthModule } from './auth/auth.module';
+import { AuthGuard } from './auth/auth.guard';
 //import {metaReducers, reducers} from './reducers';
 
 
@@ -30,6 +31,11 @@ const routes: Routes = [
       path: 'projects',
       loadChildren: () => import('./projects/projects.module').then(m => m.ProjectsModule),
       //canActivate: [AuthGuard]
+  },
+  {
+      path: 'topics',
+      loadChildren: () => import('./Topics/topics.module').then(m => m.TopicsModule),
+      canActivate: [AuthGuard]
   },
   {
       path: '**',
