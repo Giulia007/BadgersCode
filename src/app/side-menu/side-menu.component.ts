@@ -2,8 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { Store, select } from '@ngrx/store';
 import { AuthState } from '../auth/reducers';
 import { Observable } from 'rxjs';
-import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
-import { map } from 'rxjs/operators';
 import { isLoggedIn, isLoggedOut } from '../auth/auth.selectors';
 import { logout } from '../auth/auth.actions';
 
