@@ -24,7 +24,8 @@ import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { AuthModule } from './auth/auth.module';
 import { AuthGuard } from './auth/auth.guard';
 import { EffectsModule } from '@ngrx/effects';
-//import {metaReducers, reducers} from './reducers';
+import {RouterState, StoreRouterConnectingModule} from '@ngrx/router-store';
+import {metaReducers, reducers} from './auth/reducers';
 
 
 const routes: Routes = [
@@ -61,12 +62,23 @@ const routes: Routes = [
     ReactiveFormsModule,
     BrowserAnimationsModule,
     AppRoutingModule,
-    StoreModule.forRoot({}, {}),
-    StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: environment.production }),
-    AuthModule.forRoot(),
     HttpClientModule,
     SharedModule,
-    EffectsModule.forRoot([])
+    StoreModule.forRoot(reducers, {
+      metaReducers,
+      runtimeChecks: {
+        strictStateImmutability: true,
+        strictActionImmutability: true,
+        strictActionSerializability: true
+      }
+    }),
+    StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: environment.production }),
+    AuthModule.forRoot(),
+    EffectsModule.forRoot([]),
+    StoreRouterConnectingModule.forRoot( {
+      stateKey: 'router',
+      routerState: RouterState.Minimal
+    })
   ],
   providers: [TopicResolver],
   bootstrap: [AppComponent]

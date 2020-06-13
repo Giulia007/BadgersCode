@@ -21,10 +21,7 @@ export class SideMenuComponent {
     const userProfile = localStorage.getItem("user");
     if(userProfile) {
       this.store.dispatch(login({user: JSON.parse(userProfile)}));
-      console.log(userProfile);
     }
-    console.log('no user yet');
-
     this.isLoggedIn$ = this.store
     .pipe(
        select(isLoggedIn) 
