@@ -1,5 +1,7 @@
 export interface Project {
-    id:string;
+    id:string,
     title:string,
-    description: string;
+    description: string,
+    category: string,
+    published: boolean
 }

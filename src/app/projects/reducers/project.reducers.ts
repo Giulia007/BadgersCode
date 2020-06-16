@@ -16,3 +16,6 @@ export const projectsReducer = createReducer(
     )
 );
 
+export const {selectAll} = adapter.getSelectors();
+
+
