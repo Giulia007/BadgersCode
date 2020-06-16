@@ -3,7 +3,7 @@ import { Routes, RouterModule } from '@angular/router';
 import { TopicsComponent } from "./Topics/topics.component";
 import { AboutComponent } from "./about/about.component";
 import { TopicComponent } from './topic/topic.component';
-import { TopicResolver} from "./services/topic.resolver";
+import { TopicResolver } from "./services/topic.resolver";
 import { LoginComponent } from './auth/login/login.component';
 import { HomeComponent } from './home/home.component';
 import { AuthGuard } from './auth/auth.guard';
@@ -24,7 +24,6 @@ const routes: Routes = [
     path: "about",
     component: AboutComponent
   },
-
   {
     path: "topics/:topicUrl",
     component: TopicComponent,
@@ -35,6 +34,11 @@ const routes: Routes = [
   {
     path: "login",
     component: LoginComponent
+  },
+  {
+    path: "projects",
+    loadChildren: () => import('./projects/projects.module').then(m => m.ProjectsModule),
+    //canActivate: [AuthGuard]
   },
   {
     path: "**",

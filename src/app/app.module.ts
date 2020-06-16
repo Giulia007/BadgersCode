@@ -24,26 +24,9 @@ import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { AuthModule } from './auth/auth.module';
 import { AuthGuard } from './auth/auth.guard';
 import { EffectsModule } from '@ngrx/effects';
-import {RouterState, StoreRouterConnectingModule} from '@ngrx/router-store';
-import {metaReducers, reducers} from './auth/reducers';
-
-
-const routes: Routes = [
-  {
-      path: 'projects',
-      loadChildren: () => import('./projects/projects.module').then(m => m.ProjectsModule),
-      //canActivate: [AuthGuard]
-  },
-/*   {
-      path: 'topics',
-      loadChildren: () => import('./Topics/topics.module').then(m => m.TopicsModule),
-      canActivate: [AuthGuard]
-  }, */
-  {
-      path: '**',
-      redirectTo: '/'
-  }
-];
+import { RouterState, StoreRouterConnectingModule } from '@ngrx/router-store';
+import { metaReducers, reducers } from './auth/reducers';
+import { ProjectsModule } from './projects/projects.module';
 
 @NgModule({
   declarations: [
@@ -64,6 +47,7 @@ const routes: Routes = [
     AppRoutingModule,
     HttpClientModule,
     SharedModule,
+    ProjectsModule,
     StoreModule.forRoot(reducers, {
       metaReducers,
       runtimeChecks: {
