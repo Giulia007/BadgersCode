@@ -52,8 +52,6 @@ export const authReducer = createReducer(
 export function logger(reducer:ActionReducer<any>)
     : ActionReducer<any> {
     return (state, action) => {
-        console.log("state before: ", state);
-        console.log("action", action);
       //here we pass the mutated state and the action
       //down to the normal reducer and return its output
         return reducer(state, action);
