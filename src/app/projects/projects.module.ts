@@ -9,12 +9,14 @@ import { ProjectsEffects } from './projects.effects';
 import { ProjectsHttpService } from './services/projects.http-service';
 import { StoreModule } from '@ngrx/store';
 import { projectsReducer } from './reducers/project.reducers';
+import { SharedModule } from '../shared/shared.module'
 
 @NgModule({
   declarations: [ProjectComponent, ProjectsListComponent],
   imports: [
     CommonModule,
     ProjectsRoutingModule,
+    SharedModule,
     EffectsModule.forFeature([ProjectsEffects]),
     StoreModule.forFeature('projects', projectsReducer)
   ],

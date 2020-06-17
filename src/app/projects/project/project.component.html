@@ -1,1 +1,17 @@
-<p>project works!</p>
+
+<div *ngFor="let project of beginnerprojects; let indexOfelement=index;">
+
+    <mat-expansion-panel class="panel-w"
+        (opened)="panelOpenState" (closed)="panelOpenState = false">
+        <mat-expansion-panel-header>
+            <mat-panel-title class="panel-title">
+                <span> {{project.title}} </span>
+            </mat-panel-title>
+            <mat-panel-description class="panel-description">
+                <span> {{project.category}} </span>
+            </mat-panel-description>
+        </mat-expansion-panel-header>
+        <p>{{project.description}}</p>
+    </mat-expansion-panel>
+
+</div>

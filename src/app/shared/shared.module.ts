@@ -18,10 +18,9 @@ import { MatListModule } from '@angular/material/list';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatDialogModule } from '@angular/material/dialog';
-
+import { MatExpansionModule } from '@angular/material/expansion'
 //Firestore
 import {AngularFireModule} from '@angular/fire';
-
 import { environment } from '../../environments/environment';
 import {AngularFireAuthModule} from '@angular/fire/auth';
 import {AngularFirestoreModule} from '@angular/fire/firestore';
@@ -46,6 +45,7 @@ import {AngularFireStorageModule} from '@angular/fire/storage';
     MatProgressBarModule,
     MatProgressSpinnerModule,
     MatDialogModule,
+    MatExpansionModule,
     AngularFireModule,
     AngularFireAuthModule,
     AngularFireModule.initializeApp(environment.firebaseConfig),
@@ -66,7 +66,8 @@ import {AngularFireStorageModule} from '@angular/fire/storage';
     MatTableModule,
     MatProgressBarModule,
     MatProgressSpinnerModule,
-    MatDialogModule
+    MatDialogModule,
+    MatExpansionModule
   ],
 
 })
